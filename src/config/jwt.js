@@ -9,7 +9,7 @@ const createToken = (data) => {
 };
 
 const checkToken = (token) => {
-    return jwt.verify(token, "Node 38", (err, decoded) => {
+    return jwt.verify(token, "Node38", (err, decoded) => {
         if (err) {
             return {
                 statusCode: 401,
