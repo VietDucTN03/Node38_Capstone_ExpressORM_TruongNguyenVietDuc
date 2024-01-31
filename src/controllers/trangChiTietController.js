@@ -85,34 +85,37 @@ const getInfoSaveImg = async (req, res) => {
 }
 
 const postCommentAndImage = async (req, res) => {
-    // try {
-    //     const { imageID } = req.params;
-    //     const { nguoi_dung_id, noi_dung } = req.body;
+    try {
+        let { nguoi_dung_id, hinh_id, noi_dung, ngay_binh_luan } = req.body;
 
-    //     // Check if the image exists
-    //     const checkImage = await conn.hinh_anh.findOne({
-    //         where: {
-    //             hinh_id: imageID,
-    //         }
-    //     });
+        let users = await conn.nguoi_dung.findAll({
+            where: {
+                nguoi_dung_id,
+            },
+        });
 
-    //     if (checkImage) {
-    //         // Create a new comment
-    //         const newComment = await conn.binh_luan.create({
-    //             nguoi_dung_id,
-    //             hinh_id: imageID,
-    //             ngay_binh_luan: new Date(),
-    //             noi_dung,
-    //         });
+        let images = await conn.hinh_anh.findAll({
+            where: {
+                hinh_id,
+            },
+        });
 
-    //         res.send(newComment);
-    //     } else {
-    //         res.send("Image not found");
-    //     }
-    // } catch (err) {
-    //     res.send(`BE error: ${err}`);
-    // }
-}
+        if (users.length === 0 || images.length === 0) {
+            return res.send("User or image not found");
+        }
+
+        let newComment = await conn.binh_luan.create({
+            nguoi_dung_id,
+            hinh_id,
+            noi_dung,
+            ngay_binh_luan: new Date(),
+        });
+
+        res.send(newComment);
+    } catch (err) {
+        res.send(`Server error: ${err}`);
+    }
+};
 
 export {
     getInfoByID,

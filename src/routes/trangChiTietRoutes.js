@@ -8,6 +8,6 @@ const trangChiTietRoutes = express.Router();
 trangChiTietRoutes.get("/getInfoImage/:imageID", khoaAPI, getInfoByID);
 trangChiTietRoutes.get("/getInfoComment/:imageID", khoaAPI, getInfoComment);
 trangChiTietRoutes.get("/getInfoSaveImg/:imageID", khoaAPI, getInfoSaveImg);
-trangChiTietRoutes.post("/postCommentAndImage", uploadCloud.array("file"), postCommentAndImage);
+trangChiTietRoutes.post("/postCommentAndImage", khoaAPI, postCommentAndImage);
 
 export default trangChiTietRoutes
