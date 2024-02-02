@@ -40,8 +40,7 @@ const postMultipleImage = async (req, res) => {
 
         res.send(createdImages);
     } catch (error) {
-        console.error(`BE: ${error}`);
-        res.status(500).send('Lỗi Nội Server');
+        res.send(`BE: ${error}`);
     }
 };
 
